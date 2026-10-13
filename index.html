@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Enquete acadêmica com votação em tempo real usando WebSocket." />
+  <title>Enquete em tempo real</title>
+  <link rel="stylesheet" href="/style.css" />
+  <script src="/client.js" defer></script>
+</head>
+<body>
+  <!--
+    Projeto acadêmico: enquete em tempo real usando HTML, CSS, JavaScript e WebSocket.
+    Cada navegador conecta ao servidor, envia o voto em JSON e recebe as atualizações
+    compartilhadas sem precisar recarregar a página.
+  -->
+  <main class="page-shell">
+    <header class="page-header">
+      <div class="brand-mark" aria-hidden="true">↗</div>
+      <div>
+        <p class="eyebrow">DEMONSTRAÇÃO DE WEBSOCKET</p>
+        <h1>Enquete em tempo real</h1>
+        <p class="subtitle">Vote e acompanhe os resultados sendo atualizados para todos.</p>
+      </div>
+    </header>
+
+    <section class="poll-card" aria-labelledby="poll-question">
+      <div class="poll-topline">
+        <span class="live-indicator"><span class="live-dot"></span> AO VIVO</span>
+        <span class="online-count"><span aria-hidden="true">●</span> <strong id="active-users">0</strong> online</span>
+      </div>
+
+      <div class="poll-content">
+        <section class="voting-section">
+          <p class="section-label">PERGUNTA DA ENQUETE</p>
+          <h2 id="poll-question">Qual recurso você gostaria de ver no próximo projeto?</h2>
+          <p class="helper-text">Escolha uma opção. Seu voto será compartilhado com todos os participantes conectados.</p>
+
+          <form id="vote-form">
+            <fieldset id="options-list" class="options-list">
+              <legend class="visually-hidden">Escolha uma resposta</legend>
+              <label class="option-card" for="option-dark-mode">
+                <input type="radio" id="option-dark-mode" name="option" value="dark-mode" />
+                <span class="option-marker" aria-hidden="true"></span>
+                <span class="option-title">Modo escuro</span>
+              </label>
+              <label class="option-card" for="option-notifications">
+                <input type="radio" id="option-notifications" name="option" value="notifications" />
+                <span class="option-marker" aria-hidden="true"></span>
+                <span class="option-title">Notificações em tempo real</span>
+              </label>
+              <label class="option-card" for="option-reports">
+                <input type="radio" id="option-reports" name="option" value="reports" />
+                <span class="option-marker" aria-hidden="true"></span>
+                <span class="option-title">Relatórios e gráficos</span>
+              </label>
+            </fieldset>
+            <button id="vote-button" class="vote-button" type="submit" disabled>Enviar meu voto <span aria-hidden="true">→</span></button>
+            <p id="vote-feedback" class="feedback" role="status" aria-live="polite">Conectando ao servidor...</p>
+          </form>
+        </section>
+
+        <section class="results-section" aria-labelledby="results-title">
+          <div class="results-heading">
+            <div>
+              <p class="section-label">RESULTADO COMPARTILHADO</p>
+              <h2 id="results-title">Como estão os votos?</h2>
+            </div>
+            <div class="total-votes"><strong id="total-votes">0</strong><span>votos</span></div>
+          </div>
+          <p class="results-description">Os números e as barras mudam automaticamente quando alguém vota.</p>
+
+          <div class="chart" aria-label="Gráfico de barras dos resultados da enquete">
+            <div class="result-row" data-option-id="dark-mode">
+              <div class="result-label-line"><span class="result-name">Modo escuro</span><strong id="count-dark-mode">0 · 0%</strong></div>
+              <div class="bar-track"><div id="bar-dark-mode" class="bar-fill bar-blue" role="progressbar" aria-label="Votos em Modo escuro" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div></div>
+            </div>
+            <div class="result-row" data-option-id="notifications">
+              <div class="result-label-line"><span class="result-name">Notificações em tempo real</span><strong id="count-notifications">0 · 0%</strong></div>
+              <div class="bar-track"><div id="bar-notifications" class="bar-fill bar-purple" role="progressbar" aria-label="Votos em Notificações em tempo real" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div></div>
+            </div>
+            <div class="result-row" data-option-id="reports">
+              <div class="result-label-line"><span class="result-name">Relatórios e gráficos</span><strong id="count-reports">0 · 0%</strong></div>
+              <div class="bar-track"><div id="bar-reports" class="bar-fill bar-orange" role="progressbar" aria-label="Votos em Relatórios e gráficos" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div></div>
+            </div>
+          </div>
+
+          <div class="sync-note"><span class="sync-icon" aria-hidden="true">↻</span><span>Sincronizado via WebSocket</span><span id="connection-status" class="connection-status">Conectando</span></div>
+        </section>
+      </div>
+      <footer class="poll-footer"><span>Enquete demonstrativa para fins acadêmicos</span><span>As contagens ficam na memória do servidor e zeram ao reiniciá-lo.</span></footer>
+    </section>
+    <p class="page-note">Abra esta página em duas ou mais abas ou dispositivos para testar a votação simultânea.</p>
+  </main>
+</body>
+</html>

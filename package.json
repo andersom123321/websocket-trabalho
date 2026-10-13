@@ -1,0 +1,13 @@
+{
+  "name": "enquete-websocket-tempo-real",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Projeto acadêmico simples de enquete em tempo real com WebSocket.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  }
+}
